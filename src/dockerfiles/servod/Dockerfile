@@ -25,6 +25,7 @@ RUN apt-get update \
         dfu-util \
         flashrom \
         ftdi-eeprom \
+        iptables \
         gcc \
         libboost-all-dev \
         libssl-dev \
@@ -108,8 +109,12 @@ WORKDIR /
 RUN git clone https://chromium.googlesource.com/chromiumos/third_party/hdctools
 WORKDIR /hdctools
 RUN echo 'HOSTOS_CWARN=' >> 'defs/c-Linux.mk'
-RUN make && make install
+RUN make
 RUN python3 setup.py build
+RUN make install
 RUN python3 setup.py install
+# Setuptools skips nested entry point. Adding custom setup.py to overcome.
+COPY setup.py /hdctools/build
+RUN cd build && python3 setup.py install
 
 CMD tail -f /dev/null
