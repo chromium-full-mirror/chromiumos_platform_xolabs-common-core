@@ -117,4 +117,7 @@ RUN python3 setup.py install
 COPY setup.py /hdctools/build
 RUN cd build && python3 setup.py install
 
+WORKDIR /
+COPY start_servod.sh /
+
 CMD tail -f /dev/null
