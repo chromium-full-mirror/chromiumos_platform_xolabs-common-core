@@ -30,6 +30,7 @@ RUN apt-get update \
         libboost-all-dev \
         libssl-dev \
         libusb-1.0-0-dev \
+        lsof \
         make \
         protobuf-compiler \
         cmake \
@@ -118,6 +119,6 @@ COPY setup.py /hdctools/build
 RUN cd build && python3 setup.py install
 
 WORKDIR /
-COPY start_servod.sh /
+COPY start_servod.sh stop_servod.sh /
 
 CMD tail -f /dev/null
