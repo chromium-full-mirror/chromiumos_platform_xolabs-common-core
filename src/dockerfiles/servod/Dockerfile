@@ -27,6 +27,7 @@ RUN apt-get update \
         ftdi-eeprom \
         iptables \
         gcc \
+        kmod \
         libboost-all-dev \
         libssl-dev \
         libusb-1.0-0-dev \
@@ -38,8 +39,10 @@ RUN apt-get update \
         swig \
         tidy \
         upx \
+        udev \
         uhubctl \
         unzip \
+        usbutils \
         vim \
         zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
