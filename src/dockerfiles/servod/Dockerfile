@@ -121,5 +121,10 @@ RUN python3 setup.py install
 COPY setup.py /hdctools/build
 RUN cd build && python3 setup.py install
 
+# Install cbfstool for flashrom and ec.
 WORKDIR /
+RUN git clone https://review.coreboot.org/coreboot
+RUN cd /coreboot/util/cbfstool && make && make install
+RUN rm -rf /coreboot
+
 COPY start_servod.sh stop_servod.sh /
