@@ -2,6 +2,8 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
+#!/bin/bash
+
 set -x
 
 CONFIG_FILE_DIR="/var/lib/servod"
