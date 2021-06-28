@@ -109,6 +109,7 @@ RUN mkdir -p /usr/share/servo_updater/configs
 RUN cp /ec/extra/usb_updater/*.json /usr/share/servo_updater/configs/
 
 # Install hdctools
+# TODO (anhdle): Land hdctools into a separate container.
 WORKDIR /
 RUN git clone https://chromium.googlesource.com/chromiumos/third_party/hdctools
 WORKDIR /hdctools
@@ -122,9 +123,10 @@ COPY setup.py /hdctools/build
 RUN cd build && python3 setup.py install
 
 # Install cbfstool for flashrom and ec.
+# TODO (anhdle): Land cbfstool into a separate container.
 WORKDIR /
-RUN git clone https://review.coreboot.org/coreboot
-RUN cd /coreboot/util/cbfstool && make && make install
-RUN rm -rf /coreboot
+RUN wget https://coreboot.org/releases/coreboot-4.14.tar.xz && tar xf coreboot-4.14.tar.xz && rm /coreboot-4.14.tar.xz
+RUN cd /coreboot-4.14/util/cbfstool && make && make install
+RUN rm -rf /coreboot-4.14
 
 COPY start_servod.sh stop_servod.sh /
