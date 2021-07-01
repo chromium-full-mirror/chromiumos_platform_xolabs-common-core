@@ -123,10 +123,7 @@ COPY setup.py /hdctools/build
 RUN cd build && python3 setup.py install
 
 # Install cbfstool for flashrom and ec.
-# TODO (anhdle): Land cbfstool into a separate container.
-WORKDIR /
-RUN wget https://coreboot.org/releases/coreboot-4.14.tar.xz && tar xf coreboot-4.14.tar.xz && rm /coreboot-4.14.tar.xz
-RUN cd /coreboot-4.14/util/cbfstool && make && make install
-RUN rm -rf /coreboot-4.14
+COPY --from=gcr.io/satlab-images/servod/overlays/cbfstool:4.14 /coreboot-4.14/util/cbfstool/cbfstool /usr/local/bin/
+RUN chmod 755 /usr/local/bin/cbfstool
 
 COPY start_servod.sh stop_servod.sh /
