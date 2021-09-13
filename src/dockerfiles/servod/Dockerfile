@@ -130,4 +130,6 @@ RUN chmod 755 /usr/local/bin/cbfstool
 # container, we should not stop/start it in the case a new version is pushed.
 LABEL com.centurylinklabs.watchtower.enable="false"
 
+ENV UDEV 1
+
 COPY start_servod.sh stop_servod.sh /
