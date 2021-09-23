@@ -133,4 +133,5 @@ LABEL com.centurylinklabs.watchtower.enable="false"
 ENV UDEV 1
 ENV WARN_ONLY_ON_UNKNOWN_ENV="SERVO_FW_ALL_CHANNEL_OK"
 
+COPY update_servo_firmware.py /
 COPY start_servod.sh stop_servod.sh /
