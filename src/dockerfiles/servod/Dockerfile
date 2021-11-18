@@ -126,6 +126,12 @@ RUN cd build && python3 setup.py install
 COPY --from=gcr.io/satlab-images/servod/overlays/cbfstool:4.14 /coreboot-4.14/util/cbfstool/cbfstool /usr/local/bin/
 RUN chmod 755 /usr/local/bin/cbfstool
 
+# Install vboot
+WORKDIR /
+RUN git clone https://chromium.googlesource.com/chromiumos/platform/vboot_reference
+WORKDIR /vboot_reference
+RUN make && make install
+
 # Avoid watchtower updating servod, it gets pulled before every start of the
 # container, we should not stop/start it in the case a new version is pushed.
 LABEL com.centurylinklabs.watchtower.enable="false"
