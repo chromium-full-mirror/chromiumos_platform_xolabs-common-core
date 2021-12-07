@@ -23,12 +23,12 @@ RUN python servo_firmware_provision.py && rm servo_firmware_provision.py
 RUN apt-get update \
     && apt-get install -y \
         dfu-util \
-        flashrom \
         ftdi-eeprom \
         iptables \
         gcc \
         kmod \
         libboost-all-dev \
+        libpci-dev \
         libssl-dev \
         libusb-1.0-0-dev \
         lsof \
@@ -125,6 +125,11 @@ RUN cd build && python3 setup.py install
 # Install cbfstool for flashrom and ec.
 COPY --from=gcr.io/satlab-images/servod/overlays/cbfstool:4.14 /coreboot-4.14/util/cbfstool/cbfstool /usr/local/bin/
 RUN chmod 755 /usr/local/bin/cbfstool
+
+WORKDIR /
+RUN git clone https://chromium.googlesource.com/chromiumos/third_party/flashrom
+WORKDIR /flashrom
+RUN make && make install
 
 # Install vboot
 WORKDIR /
