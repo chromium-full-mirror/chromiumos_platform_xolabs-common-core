@@ -131,11 +131,18 @@ RUN git clone https://chromium.googlesource.com/chromiumos/third_party/flashrom
 WORKDIR /flashrom
 RUN make && make install
 
-# Install vboot
+# Install vboot.
 WORKDIR /
 RUN git clone https://chromium.googlesource.com/chromiumos/platform/vboot_reference
 WORKDIR /vboot_reference
 RUN make && make install
+
+# Cleaning up.
+WORKDIR /
+RUN rm -rf vboot_reference
+RUN rm -rf flashrom
+RUN rm -rf hdctools
+RUN rm -rf ec
 
 # Avoid watchtower updating servod, it gets pulled before every start of the
 # container, we should not stop/start it in the case a new version is pushed.
