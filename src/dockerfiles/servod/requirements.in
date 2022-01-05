@@ -1,4 +1,6 @@
 gsutil
+meson
+ninja
 numpy
 pexpect
 pyserial

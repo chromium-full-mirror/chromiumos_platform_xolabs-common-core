@@ -129,7 +129,7 @@ RUN chmod 755 /usr/local/bin/cbfstool
 WORKDIR /
 RUN git clone https://chromium.googlesource.com/chromiumos/third_party/flashrom
 WORKDIR /flashrom
-RUN make && make install
+RUN meson builddir && cd builddir && meson install
 
 # Install vboot.
 WORKDIR /
