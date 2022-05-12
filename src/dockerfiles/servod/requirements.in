@@ -6,3 +6,5 @@ pexpect
 pyserial
 pytest
 pyusb
+requests
+six

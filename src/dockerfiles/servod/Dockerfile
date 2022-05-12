@@ -90,17 +90,17 @@ RUN git clone https://chromium.googlesource.com/chromiumos/platform/ec
 WORKDIR /ec
 RUN make utils-host \
     && make -C extra/usb_updater usb_updater2
-RUN dosbin /ec/build/bds/util/ectool
-RUN dosbin /ec/build/bds/util/ec_parse_panicinfo
-RUN dosbin /ec/build/bds/util/ec_sb_firmware_update
-RUN dobin /ec/build/bds/util/stm32mon
-RUN dobin /ec/build/bds/util/ec_parse_panicinfo
-RUN dobin /ec/build/bds/util/uartupdatetool
-RUN dobin /ec/build/bds/util/iteflash
+RUN dosbin /ec/build/elm/util/ectool
+RUN dosbin /ec/build/elm/util/ec_parse_panicinfo
+RUN dosbin /ec/build/elm/util/ec_sb_firmware_update
+RUN dobin /ec/build/elm/util/stm32mon
+RUN dobin /ec/build/elm/util/ec_parse_panicinfo
+RUN dobin /ec/build/elm/util/uartupdatetool
+RUN dobin /ec/build/elm/util/iteflash
 RUN dobin /ec/util/flash_ec
 RUN dobin /ec/util/uart_stress_tester.py
 RUN mkdir -p /usr/share/ec-devutils
-RUN cp /ec/util/openocd/* /usr/share/ec-devutils/
+RUN cp -r /ec/util/openocd/* /usr/share/ec-devutils/
 RUN dosbin /ec/extra/usb_updater/usb_updater2
 RUN curl https://raw.githubusercontent.com/kward/shflags/master/shflags --output /usr/share/misc/shflags
 RUN python3 setup.py build
@@ -122,6 +122,10 @@ RUN python3 setup.py install
 COPY setup.py /hdctools/build
 RUN cd build && python3 setup.py install
 
+RUN mv /bin/sync /usr/local/bin/real_sync
+COPY sync /bin
+RUN chmod 755 /bin/sync
+
 # Install cbfstool for flashrom and ec.
 COPY --from=gcr.io/satlab-images/servod/overlays/cbfstool:4.14 /coreboot-4.14/util/cbfstool/cbfstool /usr/local/bin/
 RUN chmod 755 /usr/local/bin/cbfstool
@@ -141,7 +145,6 @@ RUN make && make install
 WORKDIR /
 RUN rm -rf vboot_reference
 RUN rm -rf flashrom
-RUN rm -rf hdctools
 RUN rm -rf ec
 
 # Avoid watchtower updating servod, it gets pulled before every start of the

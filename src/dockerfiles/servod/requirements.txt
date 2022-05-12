@@ -10,8 +10,12 @@ attrs==21.2.0
     # via pytest
 boto==2.49.0
     # via gcs-oauth2-boto-plugin
+certifi==2021.10.8
+    # via requests
 cffi==1.14.5
     # via cryptography
+charset-normalizer==2.0.12
+    # via requests
 crcmod==1.7
     # via gsutil
 cryptography==3.4.7
@@ -36,6 +40,8 @@ httplib2==0.19.1
     #   google-apitools
     #   gsutil
     #   oauth2client
+idna==3.3
+    # via requests
 iniconfig==1.1.1
     # via pytest
 meson==0.60.3
@@ -89,6 +95,8 @@ pyu2f==0.1.5
     # via google-reauth
 pyusb==1.1.1
     # via -r requirements.in
+requests==2.27.1
+    # via -r requirements.in
 retry-decorator==1.1.1
     # via
     #   gcs-oauth2-boto-plugin
@@ -97,6 +105,7 @@ rsa==4.7.2
     # via oauth2client
 six==1.16.0
     # via
+    #   -r requirements.in
     #   fasteners
     #   gcs-oauth2-boto-plugin
     #   google-apitools
@@ -107,3 +116,5 @@ six==1.16.0
     #   pyu2f
 toml==0.10.2
     # via pytest
+urllib3==1.26.9
+    # via requests
