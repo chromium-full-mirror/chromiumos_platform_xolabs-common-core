@@ -10,7 +10,8 @@ RUN apt-get update --no-install-recommends \
     && apt-get install -y --no-install-recommends \
         bzip2 \
         curl \
-        fdisk
+        fdisk \
+        python-is-python3
 
 # Avoid watchtower updating servod, it gets pulled before every start of the
 # container, we should not stop/start it in the case a new version is pushed.
