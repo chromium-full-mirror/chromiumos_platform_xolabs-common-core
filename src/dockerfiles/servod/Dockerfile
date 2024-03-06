@@ -20,5 +20,3 @@ LABEL com.centurylinklabs.watchtower.enable="false"
 # Try to remove as much as possible to make the container smaller
 RUN apt-get autoclean \
     && rm -rf /var/lib/apt/lists/*
-
-RUN ln -s /usr/bin/futility /usr/bin/gbb_utility
