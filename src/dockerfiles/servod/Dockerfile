@@ -1,4 +1,4 @@
-# Copyright 2021 The Chromium OS Authors. All rights reserved.
+# Copyright 2021 The ChromiumOS Authors
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
@@ -11,7 +11,14 @@ RUN apt-get update --no-install-recommends \
         bzip2 \
         curl \
         fdisk \
+        uhubctl \
         python-is-python3
+
+# As part of the migration from servod supplied to package supplied uhubctl
+# remove any provided install and link the package install as the power code
+# expects the binary to be in a specific location.
+RUN rm -f /usr/local/bin/uhubctl
+RUN ln -s /usr/sbin/uhubctl /usr/local/bin/uhubctl
 
 # Avoid watchtower updating servod, it gets pulled before every start of the
 # container, we should not stop/start it in the case a new version is pushed.
