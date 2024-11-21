@@ -17,6 +17,9 @@ RUN git clone https://chromium.googlesource.com/chromiumos/platform/labstation
 WORKDIR /labstation/usb_hubs
 RUN python3 setup.py bdist_wheel
 
+WORKDIR /labstation/image_downloader
+RUN python3 setup.py bdist_wheel
+
 #####################################################################
 FROM python:3.11-slim-bookworm as dolostools
 
@@ -63,6 +66,10 @@ LABEL com.centurylinklabs.watchtower.enable="false"
 # Labstation tools is where the power cycle code for pluggable and cambronix
 # hubs is checked in.
 COPY --from=labstationtools /labstation/usb_hubs/dist .
+
+# USB image downloader
+COPY --from=labstationtools /labstation/image_downloader/dist .
+
 # Dolos command tools necessary to update, reset, and audit Dolos.
 COPY --from=dolostools /dolos/tools/doloscmd/dist .
 
