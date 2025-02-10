@@ -28,11 +28,13 @@ RUN apt-get update --no-install-recommends \
     git \
     python3-pip
 
-RUN pip3 install grpcio-tools grpcio-reflection grpcio --break-system-packages
-
 WORKDIR /
 RUN git clone https://chromium.googlesource.com/chromiumos/platform/dolos
 
+
+# TODO: leverage dolos venv better
+WORKDIR /dolos/tools
+RUN pip install --require-hashes -r requirements.txt -q
 
 WORKDIR /dolos/tools/doloscmd
 RUN python3 setup.py bdist_wheel
@@ -50,8 +52,6 @@ RUN apt-get update --no-install-recommends \
         python-is-python3 \
         python3-pip \
         uhubctl
-
-RUN pip3 install grpcio-reflection grpcio --break-system-packages
 
 # As part of the migration from servod supplied to package supplied uhubctl
 # remove any provided install and link the package install as the power code
