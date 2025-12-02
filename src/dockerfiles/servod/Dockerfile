@@ -51,6 +51,7 @@ RUN apt-get update --no-install-recommends \
         fdisk \
         python-is-python3 \
         python3-pip \
+        sudo \
         uhubctl
 
 # As part of the migration from servod supplied to package supplied uhubctl
