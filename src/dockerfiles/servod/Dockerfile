@@ -49,6 +49,7 @@ RUN apt-get update --no-install-recommends \
         bzip2 \
         curl \
         fdisk \
+        picocom \
         python-is-python3 \
         python3-pip \
         sudo \
